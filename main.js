@@ -27,7 +27,7 @@ function createWindow () {
 app.on('ready', function() {
   download('https://github.com/ytdl-org/youtube-dl/releases/latest/download/youtube-dl.exe').then(data => {
       fs.writeFileSync('bin/youtube-dl.exe', data);
-      console.log("Successfully Downloaded New File!")
+      console.log("Successfully Downloaded youtube-dl.exe")
     });
     createWindow()  
   app.on('activate', function () {
