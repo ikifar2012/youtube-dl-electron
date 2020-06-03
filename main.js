@@ -1,6 +1,8 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
-const path = require('path')
+const {app, BrowserWindow} = require('electron');
+const path = require('path');
+const fs = require('fs');
+const download = require('download');
 
 function createWindow () {
   // Create the browser window.
@@ -22,9 +24,12 @@ function createWindow () {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.whenReady().then(() => {
-  createWindow()
-  
+app.on('ready', function() {
+  download('https://github.com/ytdl-org/youtube-dl/releases/latest/download/youtube-dl.exe').then(data => {
+      fs.writeFileSync('bin/youtube-dl.exe', data);
+      console.log("Successfully Downloaded New File!")
+    });
+    createWindow()  
   app.on('activate', function () {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.

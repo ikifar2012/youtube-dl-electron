@@ -4,3 +4,22 @@
 // `nodeIntegration` is turned off. Use `preload.js` to
 // selectively enable features needed in the rendering
 // process.
+document.getElementById("download").addEventListener("click", YTDL);
+const { spawn } = require('child_process');
+function YTDL() {
+    var url = document.getElementById("url").value; 
+    var url = url.toString();
+    console.log(url)
+    const dl = spawn('bin/youtube-dl.exe', [url, '--extract-audio','--audio-format', 'wav']);
+    dl.stdout.on('data', (data) => {
+        console.log(data.toString());
+    });
+
+    dl.stderr.on('data', (data) => {
+        console.log(data.toString());
+    });
+
+    dl.on('exit', (code) => {
+        console.log(`Child exited with code ${code}`);
+    });
+}
